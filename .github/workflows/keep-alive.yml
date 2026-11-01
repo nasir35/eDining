@@ -1,0 +1,17 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    # Runs every 10 minutes to prevent Render free-tier sleep (15 min idle limit)
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render App
+        run: |
+          RENDER_URL="${{ vars.RENDER_APP_URL || 'https://edining-app.onrender.com' }}"
+          echo "Pinging: $RENDER_URL"
+          curl -sS -o /dev/null -w "HTTP Response Code: %{http_code}\n" "$RENDER_URL/api/halls" || true

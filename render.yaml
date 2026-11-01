@@ -31,7 +31,7 @@ services:
       - key: INIT_HALLS
         value: "1"
       - key: INIT_USERS
-        value: "0"
+        value: "1"
       - key: DB_POOL_SIZE
         value: "10"
       - key: DB_MAX_OVERFLOW
