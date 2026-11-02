@@ -250,8 +250,12 @@ os.makedirs("static", exist_ok=True)
 # Serve static assets (js, css, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.api_route("/health", methods=["GET", "HEAD"])
+async def health_check():
+    return {"status": "ok"}
+
 # Serve frontend HTML pages explicitly
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def serve_index():
     return FileResponse("static/index.html")
 

@@ -406,7 +406,7 @@ def toggle_meal_status(payload: schemas.MealStatusToggle, current_user: models.U
     db.commit()
     return {"message": f"Meal status updated to '{payload.status}' and carried forward for the rest of the month ({updated_count} days).", "date": payload.date, "status": payload.status}
 
-@router.get("/halls")
+@router.api_route("/halls", methods=["GET", "HEAD"])
 def get_halls(db: Session = Depends(get_db)):
     halls = db.query(models.Hall).all()
     return halls
